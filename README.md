@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Backpack — Job Cost Capture
+
+A Next.js prototype for capturing field job costs at source. Field operatives record time on site, vehicles, plant/tools, materials, and notes; QS staff use the structured output to review and calculate completed job costs.
+
+---
+
+## Overview
+
+Backpack helps McCann understand the true cost of a completed job by replacing manual back-and-forth with a single, structured capture screen. The prototype focuses on the **Operative Job Completion and Cost Capture** flow: enter site details, see a live cost summary, and submit for QS review.
+
+| Role | Access | Primary function |
+| ----- | ----- | ----- |
+| **Field Operative** | Mobile / web | Captures time, resources, and costs on site |
+| **QS Office Staff** | Desktop web | Reviews and processes cost submissions |
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+| ----- | ----- |
+| Framework | Next.js 16 (App Router) |
+| UI | React 19, TypeScript, Tailwind CSS v4 |
+| Testing | Vitest |
+| CI | GitHub Actions |
+| Hosting | Vercel |
+
+---
 
 ## Getting Started
 
-First, run the development server:
+**Prerequisites:** Node.js 20.19.0 and npm.
 
 ```bash
+git clone <repository-url>
+cd backpack
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the Job Cost Capture screen.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts
 
-## Learn More
+| Command | Description |
+| ----- | ----- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build |
+| `npm start` | Serve the production build locally |
+| `npm run type-check` | Run TypeScript checks |
+| `npm run lint` | Run ESLint |
+| `npm test` | Run unit tests (Vitest) |
+| `npm run test:watch` | Run tests in watch mode |
 
-To learn more about Next.js, take a look at the following resources:
+Run the full local quality gate before pushing:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run type-check && npm run lint && npm test && npm run build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+backpack/
+├── app/              # Next.js App Router (pages, layout, global styles)
+├── components/       # UI components (JobCostCaptureScreen, sections, cards)
+├── lib/              # Business logic (costCalculator, types, mockData)
+├── tests/            # Vitest unit tests
+├── docs/             # Requirements, architecture, UI sketch, DevOps pipeline
+└── .github/workflows # CI configuration
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Documentation
+
+| Document | Description |
+| ----- | ----- |
+| [01 — Requirements](docs/01-Requirements.md) | Business problem, scope, and acceptance criteria |
+| [02 — System Architecture](docs/02-System_Architecture.md) | High-level system design |
+| [03 — UI Sketch](docs/03-UI_Sketch.md) | Screen layout and component structure |
+| [04 — DevOps Pipeline](docs/04-DevOps_Pipeline.md) | Local → GitHub → CI → Vercel workflow |
+| [05 — AI Disclosure](docs/05-AI-disclosure.md) | AI-assisted development disclosure |
+
+---
+
+## Deployment
+
+Production deploys automatically to **Vercel** when changes are merged to `main`. GitHub Actions runs type-check, lint, test, and build on every push and pull request.
+
+See [docs/04-DevOps_Pipeline.md](docs/04-DevOps_Pipeline.md) for the full pipeline, environments, and troubleshooting guide.
+
+---
